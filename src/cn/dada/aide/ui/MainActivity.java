@@ -13,9 +13,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import cn.dada.aide.R;
+import cn.dada.aider.R;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.telephony.CellInfo;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,6 +30,21 @@ public class MainActivity extends Activity implements OnClickListener
 	HttpResponse httpResponse;
 	TextView tvQueryResult;
 	String url;
+	
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_activity);
+		Button btnGetQuery = (Button) findViewById(R.id.btnGetQuery);
+		Button btnPostQuery = (Button) findViewById(R.id.btnPostQuery);
+		btnGetQuery.setOnClickListener(this);
+		btnPostQuery.setOnClickListener(this);
+		final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		
+		String DEVICE_ID = tm.getDeviceId(); 
+	}
 	@Override
 	public void onClick(View view)
 	{
@@ -110,15 +128,5 @@ public class MainActivity extends Activity implements OnClickListener
 
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_activity);
-		Button btnGetQuery = (Button) findViewById(R.id.btnGetQuery);
-		Button btnPostQuery = (Button) findViewById(R.id.btnPostQuery);
-		btnGetQuery.setOnClickListener(this);
-		btnPostQuery.setOnClickListener(this);
-		
-	}
+
 }
